@@ -1,0 +1,159 @@
+﻿@model List<Item>
+
+@{
+    var activeItem = true;
+    ViewData["Title"] = "صفحه اصلی";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="slider-box">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+
+                        @foreach (var item in Model.Take(2))
+                        {
+                            var active = activeItem ? "active" : "";
+                            <div class="carousel-item @active">
+                                <div class="col-md-6" style="padding-top: 20px;">
+                                    <h4>
+                                        <a class="non-blue-link" href="/Home/Details/@item.Id">@item.Name</a>
+                                    </h4>
+                                    <span>@item.CompanyName</span>
+                                    <p>@item.Color رنگ، @{
+                                            var warranty = item.HasWarranty ? "دارای گارانتی" : "بدون گارانتی";
+                                        } @warranty، @{
+                                            var washable = item.Washable ? "قابل شست و شو" : "غیرقابل شست و شو";
+                                        } @washable, جنس @item.Kind</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="/img/stuffs/@item.ImageFileName" class="w-75">
+                                </div>
+                            </div>
+                            activeItem = false;
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!--slider-box-->
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="coopen">
+                <img src="img/coopen.png" class="w-100" />
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="vizheh">
+                @{
+                    var specialItem = Model.Skip(2).Take(1).FirstOrDefault();
+                    var discountPrice = specialItem.Price * 20 / 100;
+
+                    var specialItemWarranty = specialItem.HasWarranty ? "دارای گارانتی" : "بدون گارانتی";
+                    var specialItemWashable = specialItem.Washable ? "قابل شست و شو" : "غیرقابل شست و شو";
+                }
+                <div class="col-md-6">
+                    <div class="vizheh-img">
+                        <img src="/img/stuffs/@specialItem.ImageFileName" class="w-100" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="vizheh-content">
+                        <div><del>@specialItem.Price تومان</del></div>
+                        <h4>@discountPrice تومان</h4>
+                        <h3><a href="/Home/Details/@specialItem.Id">@specialItem.Name</a></h3>
+                        <ul>
+                            <li>@specialItemWarranty</li>
+                            <li>@specialItemWashable</li>
+                        </ul>
+                        <hr>
+                        <span>زمان باقیمانده تا پایان سفارش</span>
+                        <div class="counter" data-minutes-left="1000"></div>
+                    </div>
+                </div>
+                <div class="vizheh-tag">
+                    <span>فرصت ویژه</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="one-slider">
+                <h4>محصولات پرفروش</h4>
+                <div class="owl-carousel owl-theme ov1">
+                    @foreach (var item in Model.Take(4))
+                    {
+                        <div class="item">
+                            <figure>
+                                <a href="/Home/Details/@item.Id"><img src="/img/stuffs/@item.ImageFileName" class="w-100" /></a>
+                            </figure>
+                            <h5>
+                                @item.Name
+                            </h5>
+                            <span>@item.Price تومان</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="two-slider">
+                <h4>محصولات محبوب</h4>
+                <div class="owl-carousel owl-theme ov2">
+                    @foreach (var item in Model.OrderByDescending(a => a.Price).Take(4))
+                    {
+                        <div class="item">
+                            <figure>
+                                <a href="/Home/Details/@item.Id"><img src="/img/stuffs/@item.ImageFileName" class="w-100" /></a>
+                            </figure>
+                            <h5>@item.Name</h5>
+                            <span>@item.Price تومان</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="three-slider">
+                <h4>محصولات پر بازدید</h4>
+                <div class="owl-carousel owl-theme ov3">
+                    @foreach (var item in Model.OrderByDescending(a => a.Price).Skip(2).Take(4))
+                    {
+                        <div class="item">
+                            <figure>
+                                <a href="/Home/Details/@item.Id"><img src="/img/stuffs/@item.ImageFileName" class="w-100" /></a>
+                            </figure>
+                            <h5>@item.Name</h5>
+                            <span>@item.Price تومان</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

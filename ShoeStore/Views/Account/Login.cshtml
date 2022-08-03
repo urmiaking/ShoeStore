@@ -1,0 +1,143 @@
+﻿@model User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- App Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- App title -->
+    <title>ورود به سیستم</title>
+
+    <!-- App CSS -->
+    <link href="/assets/admin/assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/admin/assets/css/custom-style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="/assets/admin/assets/plugins/toastr/toastr.min.css">
+
+    <script src="/assets/admin/assets/js/modernizr.min.js"></script>
+</head>
+<body>
+    <div class="account-pages"></div>
+    <div class="clearfix"></div>
+    <div class="wrapper-page">
+        <div class="m-t-40 card-box">
+            <div class="text-center">
+                <a class="logo"><span>ورود به سیستم</span></a>
+                <h4 class="text-uppercase font-bold m-b-0">ورود</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal m-t-20" method="post" asp-action="Login">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" asp-for="Username" placeholder="نام کاربری">
+                            <span asp-validation-for="Username"></span>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" asp-for="Password" placeholder="رمز عبور">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-30">
+                        <div class="col-xs-12">
+                            <button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">ورود</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end card-box-->
+    </div>
+    <!-- end wrapper page -->
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script src="/assets/admin/assets/js/jquery.min.js"></script>
+    <script src="/assets/admin/assets/js/bootstrap-rtl.min.js"></script>
+    <script src="/assets/admin/assets/js/detect.js"></script>
+    <script src="/assets/admin/assets/js/fastclick.js"></script>
+    <script src="/assets/admin/assets/js/jquery.slimscroll.js"></script>
+    <script src="/assets/admin/assets/js/jquery.blockUI.js"></script>
+    <script src="/assets/admin/assets/js/waves.js"></script>
+    <script src="/assets/admin/assets/js/wow.min.js"></script>
+    <script src="/assets/admin/assets/js/jquery.nicescroll.js"></script>
+    <script src="/assets/admin/assets/js/jquery.scrollTo.min.js"></script>
+
+    <!-- App js -->
+    <script src="/assets/admin/assets/js/jquery.core.js"></script>
+    <script src="/assets/admin/assets/js/jquery.app.js"></script>
+
+    <!-- jQuery Validation -->
+    <script src="/assets/admin/assets/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="/assets/admin/assets/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- Toaster -->
+    <script src="/assets/admin/assets/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function() {
+            if ("@TempData["Error"]" != "") {
+                toastr["error"]("@TempData["Error"]", "خطا");
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-left",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "500",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+            if ("@TempData["Success"]" != "") {
+                toastr["success"]("@TempData["Success"]", "موفق");
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "500",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

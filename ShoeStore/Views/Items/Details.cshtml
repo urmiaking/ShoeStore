@@ -1,0 +1,75 @@
+﻿@model Item
+
+<div class="container">
+    <div class="row">
+        <h4>صنایع دستی</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Weight)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Weight)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Kind)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Kind)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Washable)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Washable)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.HasWarranty)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HasWarranty)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageFileName)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="/img/stuffs/@Model.ImageFileName" class="img-thumbnail" alt="">
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش</a> |
+        <a asp-action="Index">بازگشت به لیست</a>
+    </div>
+</div>
+

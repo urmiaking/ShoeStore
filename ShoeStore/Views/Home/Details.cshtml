@@ -1,0 +1,170 @@
+﻿@using ShoeStore.Data
+
+@inject AppDbContext AppDbContext
+@{
+    ViewData["Title"] = " اطلاعات محصول" + Model.Name;
+
+    var itemWarranty = Model.HasWarranty ? "دارای گارانتی" : "بدون گارانتی";
+    var itemWashable = Model.Washable ? "قابل شست و شو" : "غیرقابل شست و شو";
+}
+
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-box">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h5>@Model.Name</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="single-content-right">
+                                    <ul class="brand-ul">
+                                        <li>شرکت سازنده : <a href="#">@Model.CompanyName</a></li>
+                                        <li>دسته بندی : <a href="#">کیف و کفش</a></li>
+                                    </ul>
+                                    <br>
+                                    <hr/><span>مشخصات مختصر محصول :</span><br>
+                                    <ul class="product-ul">
+                                        <li></li>
+                                        <li>@itemWashable</li>
+                                        <li>تعداد: @Model.Amount</li>
+                                        <li>وزن: @Model.Weight</li>
+                                        <li>جنس: @Model.Kind</li>
+                                        <li></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="single-content-left">
+                                    <ul>
+                                        <span>وضعیت : موجود در انبار</span>
+                                        <br>
+                                        <br>
+                                        <li>گارانتی : @itemWarranty</li>
+                                        <br>
+                                        <li>
+                                            رنگ بندی :
+                                            <ul>
+                                                @if (Model.Color == "سفید")
+                                                {
+                                                    <li><i class="fa fa-square white"></i>سفید</li>
+                                                }
+                                                else if (Model.Color == "آبی")
+                                                {
+                                                    <li><i class="fa fa-square blue"></i>آبی</li>
+                                                }
+                                                else if(Model.Color == "قهوه ای")
+                                                {
+                                                    <li><i class="fa fa-square brown"></i>قهوه ای</li>
+                                                }
+                                                else if(Model.Color == "سیاه")
+                                                {
+                                                    <li><i class="fa fa-square black"></i>سیاه</li>
+                                                }
+                                                else
+                                                {
+                                                    <li><i class="fa fa-square silver"></i>نقره ای</li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3>@Model.Price تومان</h3>
+                        <div class="btn-single">
+                            <a href="#"><i class="fa fa-cart-plus"></i>خرید آنلاین</a>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="single-img">
+                            <figure>
+                                <img src="/img/stuffs/@Model.ImageFileName" class="w-100 s-img" data-zoom-image="/img/stuffs/@Model.ImageFileName">
+                            </figure>
+                        </div>
+                        <div class="single-img-slider">
+                            <div class="owl-carousel owl-theme ov-single">
+                                <div class="item">
+                                    <a data-fancybox="gallery" href="/img/stuffs/@Model.ImageFileName"><img src="/img/stuffs/@Model.ImageFileName" class="w-100"></a>
+                                </div>
+                                <div class="item">
+                                    <a data-fancybox="gallery" href="/img/stuffs/@Model.ImageFileName"><img src="/img/stuffs/@Model.ImageFileName" class="w-100"></a>
+                                </div>                                                                 
+                                <div class="item">                                                     
+                                    <a data-fancybox="gallery" href="/img/stuffs/@Model.ImageFileName"><img src="/img/stuffs/@Model.ImageFileName" class="w-100"></a>
+                                </div>                                                                 
+                                <div class="item">                                                     
+                                    <a data-fancybox="gallery" href="/img/stuffs/@Model.ImageFileName"><img src="/img/stuffs/@Model.ImageFileName" class="w-100"></a>
+                                </div>                                                                 
+                                <div class="item">                                                     
+                                    <a data-fancybox="gallery" href="/img/stuffs/@Model.ImageFileName"><img src="/img/stuffs/@Model.ImageFileName" class="w-100"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <span class="releated-products">محصولات مرتبط</span>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-two-slider">
+                <div class="owl-carousel owl-theme ov-single-two">
+                    @foreach (var item in AppDbContext.Items.ToList().Take(5))
+                    {
+                        if (item.Id == Model.Id)
+                        {
+                            continue;
+                        }
+                        <div class="item">
+                            <figure>
+                                <a href="/Home/Details/@item.Id"><img src="/img/stuffs/@item.ImageFileName" class="w-100" style="max-height: 200px;" /></a>
+                            </figure>
+                            <h5>
+                                @item.Name
+                            </h5>
+                            <span>@item.Price تومان</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#one"><i class="fa fa-file"></i>مشخصات فنی</a></li>
+                    <li><a data-toggle="tab" href="#two"><i class="fa fa-pencil"></i>نظرات کاربران</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="one" class="tab-pane fade">
+                        <p class="bg-light"><span>شرکت سازنده:</span>@Model.CompanyName</p>
+                        <p class="bg-light"><span>نام محصول:</span>@Model.Name</p>
+                        <p class="bg-light"><span>گارانتی:</span>@itemWarranty</p>
+                        <p class="bg-light"><span>قابلیت شست و شو:</span>@itemWashable</p>
+                        <p class="bg-light"><span>موجودی:</span>@Model.Amount</p>
+                        <p class="bg-light"><span>وزن:</span>@Model.Weight</p>
+                        <p class="bg-light"><span>جنس:</span>@Model.Kind</p>
+                        <p class="bg-light"><span>رنگ:</span>@Model.Color</p>
+                        <p class="bg-light"><span>قیمت:</span>@Model.Price</p>
+                    </div>
+                    <div id="two" class="tab-pane fade">
+                        نظری وجود ندارد...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

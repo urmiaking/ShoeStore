@@ -1,0 +1,104 @@
+﻿@model ItemsViewModel
+
+<h4>کالای جدید</h4>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Item.Name" class="control-label"></label>
+                    <input asp-for="Item.Name" class="form-control" />
+                    <span asp-validation-for="Item.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Color" class="control-label"></label>
+                    <input asp-for="Item.Color" class="form-control" />
+                    <span asp-validation-for="Item.Color" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Weight" class="control-label"></label>
+                    <input asp-for="Item.Weight" class="form-control" />
+                    <span asp-validation-for="Item.Weight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Kind" class="control-label"></label>
+                    <input asp-for="Item.Kind" class="form-control" />
+                    <span asp-validation-for="Item.Kind" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Amount" class="control-label"></label>
+                    <input asp-for="Item.Amount" class="form-control" />
+                    <span asp-validation-for="Item.Amount" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        @Html.DisplayNameFor(model => model.Item.Washable)
+                        <input class="form-check-input" asp-for="Item.Washable" />
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        @Html.DisplayNameFor(model => model.Item.HasWarranty)
+                        <input class="form-check-input" asp-for="Item.HasWarranty" />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Price" class="control-label"></label>
+                    <input asp-for="Item.Price" class="form-control" />
+                    <span asp-validation-for="Item.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.CompanyName" class="control-label"></label>
+                    <input asp-for="Item.CompanyName" class="form-control" />
+                    <span asp-validation-for="Item.CompanyName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Item.ImageFileName" class="control-label"></label>
+                    <input asp-for="File" class="dropify" data-height="300" accept="image/x-png,image/gif,image/jpeg" />
+                    <span asp-validation-for="File" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="ذخیره محصول" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">بازگشت به لیست</a>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- file uploads js -->
+    <script src="/plugins/fileuploads/js/dropify.min.js"></script>
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'عکس را به اینجا بکشید یا کلیک کنید',
+                'replace': 'برای جایگزینی عکس را به اینجا بکشید یا کلیک کنید',
+                'remove': 'پاک کردن',
+                'error': 'با پوزش فراوان، خطایی رخ داده'
+            },
+            error: {
+                'fileSize': 'حجم عکس بیشتر از حد مجاز است (1M).'
+            }
+        });
+    </script>
+}
+
+@section Styles
+{
+    <!-- form Uploads -->
+    <link href="/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+}
+
