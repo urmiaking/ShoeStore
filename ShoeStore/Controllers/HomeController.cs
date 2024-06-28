@@ -16,6 +16,7 @@ public class HomeController : Controller
     }
 
     public async Task<IActionResult> Index() => View(await _context.Items.ToListAsync());
+    public IActionResult AboutUs() => View();
 
     public async Task<IActionResult> Details(int id)
     {
