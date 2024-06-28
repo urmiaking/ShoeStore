@@ -21,6 +21,29 @@ namespace ShoeStore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ShoeStore.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("ShoeStore.Models.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -182,6 +205,9 @@ namespace ShoeStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -195,8 +221,35 @@ namespace ShoeStore.Migrations
                         {
                             Id = 1,
                             Password = "1234",
+                            Role = "Admin",
                             Username = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Password = "1234",
+                            Role = "User",
+                            Username = "user"
                         });
+                });
+
+            modelBuilder.Entity("ShoeStore.Models.Cart", b =>
+                {
+                    b.HasOne("ShoeStore.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShoeStore.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

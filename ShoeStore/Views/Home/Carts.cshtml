@@ -1,0 +1,54 @@
+﻿@model List<Cart>
+
+<div class="container">
+    <div class="row">
+        @if (Model.Count == 0)
+        {
+            <div class="col-md-12 mb-3">
+                <h4 class="text-center">هیج محصولی در سبد خرید شما وجود ندارد</h4>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-8">
+                @foreach (var cart in Model)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-2">
+                                <img src="/img/stuffs/@cart.Item.ImageFileName" class="img-fluid rounded-start w-100 m-2" alt="@cart.Item.Name">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@cart.Item.Name</h5>
+                                    <p class="card-text">
+                                        قیمت: @cart.Item.Price تومان<br>
+                                        رنگ: @cart.Item.Color<br>
+                                        تعداد: @cart.Item.Amount
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex flex-column justify-content-end align-items-end">
+                                <a href="@Url.Action("RemoveFromCart", "Home", new { id = cart.ItemId })" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i> حذف
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">جمع کل</h5>
+                        <p class="card-text">
+                            قیمت نهایی: @Model.Sum(c => c.Item.Price) تومان
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+
+</div>

@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Item> Items { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Cart> Carts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -140,7 +141,17 @@ public static class DataHelper
             {
                 Id = 1,
                 Username = "admin",
-                Password = "1234"
+                Password = "1234",
+                Role = "Admin"
+            });
+
+        modelBuilder.Entity<User>()
+            .HasData(new User
+            {
+                Id = 2,
+                Username = "user",
+                Password = "1234",
+                Role = "User"
             });
     }
 }

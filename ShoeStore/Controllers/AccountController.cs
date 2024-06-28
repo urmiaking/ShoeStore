@@ -37,7 +37,8 @@ public class AccountController : Controller
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Name, user.Username)
+            new(ClaimTypes.Name, dbUser.Username),
+            new(ClaimTypes.Role, dbUser.Role)
         };
 
         var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -50,7 +51,7 @@ public class AccountController : Controller
         await _httpContext.HttpContext!.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimIdentity), authProperties);
 
-        return RedirectToAction("Index", "Items");
+        return dbUser.Role == "Admin" ? RedirectToAction("Index", "Items") : RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Logout()
