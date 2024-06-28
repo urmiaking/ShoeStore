@@ -6,7 +6,7 @@ using ShoeStore.ViewModels;
 
 namespace ShoeStore.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class ItemsController : Controller
 {
     private readonly AppDbContext _context;
